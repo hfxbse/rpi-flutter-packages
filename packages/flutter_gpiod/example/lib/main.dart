@@ -9,7 +9,7 @@ void main() async {
 
   /// Print out all GPIO chips and all lines
   /// for all GPIO chips.
-  for (var chip in chips) {
+  for (var chip in chips.values) {
     print("$chip");
 
     for (var line in chip.lines) {
@@ -29,9 +29,9 @@ void main() async {
   /// The main GPIO chip is called `pinctrl-bcm2711` on Pi 4 and `pinctrl-bcm2835`
   /// on older Raspberry Pis and it was also called that way on Pi 4 with older
   /// kernel versions.
-  final chip = chips.singleWhere(
+  final chip = chips.values.firstWhere(
     (chip) => chip.label == 'pinctrl-bcm2711',
-    orElse: () => chips.singleWhere((chip) => chip.label == 'pinctrl-bcm2835'),
+    orElse: () => chips.values.firstWhere((chip) => chip.label == 'pinctrl-bcm2835'),
   );
 
   final line1 = chip.lines[23];
